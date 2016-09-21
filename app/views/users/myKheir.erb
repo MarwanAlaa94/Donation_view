@@ -1,0 +1,32 @@
+
+  <% totalOfMoney=0 %>
+  <% if @lists.count !=0 %>
+  <%@lists.each do |list| %>
+  <% if list.count !=0 %>
+        <br>
+      <h3><strong> <u>Organization Name:</u> </strong>
+          <%=Organization.all.where(id: list[0].org_id)[0].org_name%>
+      </h3>
+
+        <% total=0 %>
+    <%list.each do |payment| %>
+
+        <strong> Need Name: </strong> <%= payment.need_name %> |
+        <strong> Money donated: </strong> <%= payment.donated_money%>
+        <strong> Time of Donation: </strong> <%= payment.created_at.strftime("%H:%M - %d %b. %Y") %>
+        <% if payment .is_recieved%>
+           |<strong style="color:green;"> Recieved </strong>
+        <%else%>
+          |<strong style="color:blue;"> Not recieved </strong>
+        <%end%>
+      <br>
+        <% total+=payment.donated_money %>
+        <% totalOfMoney+=payment.donated_money %>
+    <%end%>
+
+        <br>
+        <h4><strong> Total Money donated to this Organization: </strong> <%= total%>  </h4>
+        <%end%>
+  <%end%>
+<h1>  <strong> The total of your donations: </strong> <%= totalOfMoney%></h1>
+<% end %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Organizations</h1>
+
+    <ul class="users">
+    <%= form_tag organizations_path, :method =>'get' do %>
+        <%= text_field_tag :search , params[:search] %>
+        <%= submit_tag "Search in organizations names" %>
+    <% end %>
+    <%= link_to "Advanced Search" ,  new_organization_search_path %>
+
+    <%= will_paginate %>
+    <% @organizations.each do |organization| %>
+    <% if !current_organization?(organization)%>
+    <li>
+      <%= link_to organization do %>
+
+      <div class="organization_temp">
+        <h3><%= image_tag   organization.image.url(:thumb)%></h3>
+        <h4><strong>Name:</strong</h4>
+        <strong> <%= organization.org_name %></strong>
+        <h4><strong>Website:</strong</h4>
+        <strong>  <%= organization.website_URL%></strong>
+      </div>
+      <%end%>
+      </li>
+      <%end%>
+    <% end %>
+  </ul>
+
+    <%#= will_paginate %>
+
+<br>
