@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   get 'admin/home'
 
 
-  
+
   resources :messages
   resources :organizations do
+    get '/needs/:id/addImage', to: 'needs#addImage', as: 'addImage'
     resources :needs do
     get 'donation' => 'needs#donate'
     get 'needPayments' => 'needs#showPayments'
@@ -33,7 +34,8 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get '/organization/:id/editImages', to: 'organizations#editAndaddImages', as: 'editImages'
-  get    '/donor/register',   to: 'users#new' 
+
+  get    '/donor/register',   to: 'users#new'
   get    '/donor/login',   to: 'sessions#new_donor'
   post   '/donor/login',   to: 'sessions#create_donor'
   delete '/donor/logout',  to: 'sessions#destroy_donor'
